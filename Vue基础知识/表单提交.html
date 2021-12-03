@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <form action="">
+            <div class="uname">
+                <span>姓名:</span>
+                <input type="text" v-model='uname'>
+            </div>
+            <div class="xingbie">
+                <span>性别:</span>
+                <span>
+                    <input type="radio" id="male" value="1" v-model='gender'>
+                    <label for="male">男</label>
+                    <input type="radio" id="female" value="2" v-model='gender'>
+                    <label for="female">女</label>
+                </span>
+                
+            </div>
+            <div class="aihao">
+                <span>爱好:</span>
+                <input type="checkbox" id="lanqiu" value="1" v-model='hobby'>
+                <label for="lanqiu">篮球</label>
+                <input type="checkbox" id="changge" value="2" v-model='hobby'>
+                <label for="changge">唱歌</label>
+                <input type="checkbox" id="xiedaima" value="3" v-model='hobby'>
+                <label for="xiedaima">写代码</label>
+            </div>
+            <div class="zhiye">
+                <span>职业:</span>
+                <!-- <select name="" id="" v-model='occupation'> //单选  加 <select name="" id="" v-model='occupation' multiple='true'>  -->
+                <select name="" id="" v-model='occupation'>  
+                    <option value="0">请选择职业...</option>
+                    <option value="1">教师</option>
+                    <option value="2">软件工程师</option>
+                    <option value="3">律师</option>
+
+                </select>
+            </div>
+            <div class="gerenjianjie">
+                <span>个人简介:</span>
+                <textarea  v-model='desc'></textarea>
+            </div>
+            <div class="tijiao">
+                <input type="submit" value="提交" @click.prevent='handel'>
+            </div>
+        </form>
+    </div>
+    <script  src="../js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                uname:'',
+                gender:1,
+                hobby:['1'],
+                occupation:1,
+                desc:'nihao'
+            },
+            methods: {
+                handel: function(){
+                    console.log(this.gender);
+                    console.log(this.uname);
+                    console.log(this.hobby);
+                    console.log(this.hobby.toString());
+                    console.log(this.occupation);
+                    console.log(this.desc);
+                }
+            },
+
+        })
+    </script>
+</body>
+</html>

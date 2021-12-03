@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- v-text 没有闪动问题 -->
+        <div v-text="msg"></div>
+        <!-- 不建议使用  自己的数据可以使用 其他网站传进来的不建议使用 v-html -->
+        <div v-html="msg1"></div>
+        <!-- 原始数据 -->
+        <div v-pre>{{msg}}</div>
+    </div>
+    <script  src="../js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'hello Vue',
+                msg1: '<h1>HTML</h1>'
+            }
+
+        })
+    </script>
+</body>
+</html>

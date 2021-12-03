@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .cart-content{
+            width: 300px;
+    margin: auto;
+        }
+       
+        .cart-title{
+           
+            background-color: lightblue;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+        }
+        .cart-list-item{
+            display: flex;  
+            
+            align-items: center;
+            justify-content: space-around;
+            height: 55px;
+            line-height: 55px;
+           
+           border-top: 1px solid #ADD8E6;
+        }
+        .cart-list-item-img{
+            width: 45px;
+            height: 45px;
+            margin: 5px;
+        }
+        .cart-list-item-name{
+            width: 90px;
+            font-size: 16px;
+        }
+        .cart-list-item-info{
+            width: 100px;
+        }
+        
+        .cart-list-item-info a{
+            font-size: 20px;
+    width: 30px;
+    background-color: lightgray;
+    text-decoration: none;
+    vertical-align: middle;
+        }
+        
+        .cart-list-item-info input{
+            width: 40px;
+    height: 25px;
+        }
+        .cart-list-item-delete {
+            width: 40px;
+    text-align: center;
+    font-size: 40px;
+    cursor: pointer;
+    color: red;
+        }
+        .total{
+            background-color: #FFCE46;
+    height: 50px;
+    line-height: 50px;
+    text-align: right;
+        }
+        .total span{
+            color: #c00000;
+            font-weight: bold;
+            padding-left: 10px;
+        }
+        .total button{
+            width: 80px;
+            height: 35px;
+            background-color: #DC4C40;
+            border: 0;
+            margin: 0 10px ;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="cart-box"> 
+            
+            <my-cart></my-cart> 
+        </div>
+    </div>
+    <script  src="../js/vue.js"></script>
+    <script>
+        // 局部组件注册
+        var CartTitle = {
+            template:`
+            <div class="cart-title">
+                    张三的商品
+                </div>
+            `
+        }
+        var CartList = {
+            props:['list'],
+            template:`
+            <div>
+                <div class="cart-list" v-for='(item, index) in list' :key='item.id'>
+                    <div class="cart-list-item">
+                        <img :src="item.img" alt="" class="cart-list-item-img">
+                        <div  class="cart-list-item-name">{{item.name}}</div>
+                        <div class="cart-list-item-info">
+                            <a href='' v-on:click.prevent='smb(item.id)'>-</a>
+                            <input type="text" :value="item.num" @blur='changeNum(item.id, $event)' >
+                            <a href='' v-on:click.prevent='add(item.id)'>+</a>
+                        </div>
+                        <div class="cart-list-item-delete" @click='delCart(item.id)'>
+                            x
+                        </div>
+                    </div>
+                </div> 
+            </div>   
+            `,
+            methods: {
+                smb(id){
+                    this.$emit('changeNum',{
+                        id: id,
+                        num: event.target.value,
+                        type: 'smb',
+                    })
+                },
+                add(id){
+                    this.$emit('changeNum',{
+                        id: id,
+                        num: event.target.value,
+                        type: 'add',
+                    })
+                },
+                changeNum(id, event){
+                    
+                    this.$emit('changeNum',{
+                        id: id,
+                        num: event.target.value,
+                        type: 'change'
+                    })
+                },
+                delCart: function(id){
+                    
+                    this.$emit('delCart',id)
+                }
+            }
+        }
+        var CartTotal = {
+            props:['list'],
+            template: `
+                <div class="total">
+                    <span>总价:</span>
+                    <span>  {{total}}</span>
+                    <button>结算</button>
+                    
+                </div>
+            `,
+            computed: {
+                total: function(){
+                    var t = 0;
+                    this.list.forEach(item => {
+                        t += item.num*item.price
+                    })
+                    return t
+                }
+            }
+        }
+        // 全局组件注册
+        Vue.component('my-cart', {
+            data: function(){
+                return {
+                    list:[{
+                    id:1,
+                    name:'TCL彩电',
+                    num:1,
+                    img:'../img/a.jpg',
+                    price:'1000',
+                    },{
+                    id:2,
+                    name:'机顶盒',
+                    num:2,
+                    img:'../img/b.jpg',
+                    price:'1000',
+                    }]
+                }
+            },
+            template: `
+                <div class="cart-content">
+                    <cart-title></cart-title>
+                    <cart-list :list='list' @changeNum='changeNum' @delCart='delCart($event)'></cart-list>
+                    <cart-total :list='list'></cart-total>
+                </div>
+            `,
+            methods: {
+                changeNum: function(val){
+                    console.log(val);
+                    if(val.type == 'change'){
+                        this.list.some(item =>{
+                        if(item.id == val.id){
+                            item.num = val.num
+                         }
+                        });
+                    }else if(val.type == 'smb'){
+                        this.list.some(item =>{
+                        if(item.id == val.id){
+                            item.num -= 1
+                         }
+                        });
+                    }else if(val.type == 'add'){
+                        this.list.some(item =>{
+                        if(item.id == val.id){
+                            item.num += 1
+                         }
+                        });
+                    } 
+                },
+                delCart: function(id){
+                    var index = this.list.findIndex(item => {
+                       return  item.id == id
+                    })
+                    this.list.splice(index,1)
+                } 
+            },
+            components: {
+               'cart-title': CartTitle,
+               'cart-list': CartList,
+               'cart-total': CartTotal,
+            }
+
+        })
+
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                
+            },
+            methods: {
+
+            },
+
+        })
+    </script>
+</body>
+</html>

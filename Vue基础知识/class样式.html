@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .active{
+        width: 100px;
+        height: 100px;
+        border: 1px solid red;
+    }
+    .error{
+        background-color: greenyellow;
+    }
+    .test{
+        color: blue;
+    }
+    .base{
+        font-size: 28px;
+    }
+</style>
+<body>
+    <div id="app">
+        <div v-bind:class="{active: isActive, error: isError}">
+            <span>class样式</span>
+        </div>
+        <button v-on:click="handel">切换1</button>
+        <div v-bind:class="[activeClass, errorClass]">
+            <span>class数组用法</span>
+        </div>
+        <button v-on:click="handel2">切换2</button>
+        <div v-bind:class="[activeClass, errorClass, {test: isTest}]">
+            <span>class数组用法</span>
+        </div>
+        <button v-on:click="handel3">切换3</button>
+        <div v-bind:class="arrClasses">
+            <span>class数组用法</span>
+        </div>
+        <div v-bind:class="objClasses">
+            <span>class数组用法</span>
+        </div>
+        <button v-on:click="handel5">切换5</button>
+        <div class="base" v-bind:class="objClasses">
+            <span>class数组用法</span>
+        </div>
+        <div class="tabul-item" :class='activeIndex===index?"active":""'></div>
+    </div>
+    <script  src="../js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                isActive: true,
+                isError: true,
+                activeClass: 'active',
+                errorClass: 'error',
+                isTest: true,
+                arrClasses:['active', 'error'],
+                objClasses: {
+                    active: true,
+                    error: true,
+                },
+                activeIndex:0
+            },
+            methods: {
+                handel: function(){
+                    this.isActive = !this.isActive
+                    this.isError = !this.isError
+                },
+                handel2: function(){
+                    this.activeClass = ''
+                    this.errorClass = ''
+                },
+                handel3: function(){
+                    this.isTest = false
+                },
+                handel5: function(){
+                    this.objClasses.active = false
+                },
+            }
+
+        })
+    </script>
+</body>
+</html>

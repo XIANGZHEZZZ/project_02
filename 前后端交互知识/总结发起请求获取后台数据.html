@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../lib/jquery.js"></script>
+    <script src="../lib/axios.js"></script>
+</head>
+<body>
+    <button id="btn1">使用$.get()发起请求</button>
+    <button id="btn2">使用$.post()发起请求</button>
+    <button id="btn3">使用$.ajax()发起请求GET</button>
+    <button id="btn4">使用$.ajax()发起请求POST</button>
+    <button id="btn5">使用$.xhr发起请求GET</button>
+    <button id="btn6">使用$.xhr发起请求POST</button>
+    <button id="btn7">发起GET请求</button>
+    <button id="btn8">发起POST请求</button>
+    <button id="btn9">直接发起GET请求</button>
+    <button id="btn10">直接发起POST请求</button>
+    <script>
+       
+        $(function(){
+            // 使用$.get()发起请求
+            $('#btn1').on('click', function(){
+                $.get('http://www.liulongbin.top:3006/api/getbooks', {id: 1}, function(res){
+                    console.log(res);
+                })
+            })
+            // 使用$.post()发起请求
+            $('#btn2').on('click', function(){
+                $.post('http://www.liulongbin.top:3006/api/addbook', { bookname: '水浒传', author: '施耐庵', publisher: '天津图书出版社'}, function(res){
+                    console.log(res);
+                })
+            })
+            // 使用$.ajax()发起请求GET
+            $('#btn3').on('click', function(){
+                $.ajax({
+                    type:'GET',
+                    url: 'http://www.liulongbin.top:3006/api/getbooks',
+                    data: {
+                        id: 1
+                    },
+                    success: function(res){
+                        console.log(res);
+                    }
+                })
+            })
+            // 使用$.ajax()发起请求POST
+            $('#btn4').on('click', function(){
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://www.liulongbin.top:3006/api/addbook',
+                    data: {
+                        bookname: '水浒传', 
+                        author: '施耐庵',
+                        publisher: '天津图书出版社'
+                    },
+                    success: function(res){
+                        console.log(res);
+                    }
+
+                })
+            })
+            // 使用$.xhr发起请求GET
+            $('#btn5').on('click', function(){
+                var xhr = new XMLHttpRequest()
+
+                xhr.open('GET', 'http://www.liulongbin.top:3006/api/getbooks?id=1')
+
+                xhr.send()
+
+                xhr.onreadystatechange = function(){
+                    // xhr 固定写法 
+                    if(xhr.readyState === 4 && xhr.status === 200){
+                        console.log(xhr.responseText);
+                    }
+                }
+            })
+            // 使用$.xhr发起请求POST
+            $('#btn6').on('click', function(){
+                var xhr = new XMLHttpRequest()
+
+                xhr.open('POST', 'http://www.liulongbin.top:3006/api/addbook')
+
+                // 固定写法
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+
+                xhr.send('bookname=水浒啊&author=施耐庵&publisher=上海图书出版社')
+
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState === 4 && xhr.status === 200){
+                        console.log(xhr.responseText);
+                    }
+                }
+            })
+            // 发起GET请求
+        document.querySelector('#btn7').addEventListener('click', function(){
+            var url = 'http://www.liulongbin.top:3006/api/get'
+            var paramsObj = {name: 'zs', age: 18}
+            axios.get(url, {params: paramsObj}).then(function(res){
+                console.log(res.data);
+            })
+        })
+        // 发起POST请求
+        document.querySelector('#btn8').addEventListener('click', function(){
+            var url = 'http://www.liulongbin.top:3006/api/post'
+            var dataObj= {address: '北京', location: '顺义区'}
+            axios.post(url, dataObj).then(function(res){
+                console.log(res.data);
+            })
+        })
+
+        // 直接发起GET请求
+        document.querySelector('#btn9').addEventListener('click', function(){
+            var url = 'http://www.liulongbin.top:3006/api/get'
+            var paramsData = {name: '钢铁侠', age: 118}
+            axios({
+                method: 'GET',
+                url: url,
+                params: paramsData
+            }).then(function(res){
+                console.log(res);
+            })
+        })
+        // 直接发起POST请求
+        document.querySelector('#btn10').addEventListener('click', function(){
+            var url = 'http://www.liulongbin.top:3006/api/post'
+            axios({
+                method: 'POST',
+                url: 'http://www.liulongbin.top:3006/api/post',
+                data: {
+                    name: '项哲',
+                    age: 30,
+                    gender: '女'
+                }
+            }).then(function(res){
+                console.log(res.data);
+            })
+        })
+        })
+        
+
+    </script>
+</body>
+</html>

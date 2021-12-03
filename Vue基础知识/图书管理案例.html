@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .grid{
+            margin: auto;
+            width: 500px;
+            text-align: center;
+        }
+        h1{
+            text-align: center;
+            width: 500px;
+            height: 68px;
+            line-height: 68px;
+        }
+        table{
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th,td{
+            /* border: 1px solid #333; */
+            border: 1px dashed orange;
+            height: 35px;
+            line-height: 35px;
+            padding: 10px;
+        }
+        th{
+            background-color: orange;
+        }
+        .grid-label{
+            width: 100%;
+            height: 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="grid">
+            <h1>图书管理</h1>
+            <div class="grid-label">
+                <label for="id">
+                    编号:
+                </label> 
+                <input type="text" id="id" v-model='id' :disabled='flag'>
+                <label for="name">
+                    名称:
+                </label>
+                <input type="text" id="name" v-model='name' >
+                <button @click='handel' :disabled='submitFlag'>提交</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>名称</th>
+                        <th>时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for='item in books' :key='item.id'>
+                        <td>{{item.id}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.date}}</td>
+                        <td>
+                            <a href="" v-on:click.prevent='toEdit(item.id)'>修改</a>
+                            <span>|</span>
+                            <a href="" v-on:click.prevent='deleteBooks(item.id)'>删除</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script  src="../js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                id:'',
+                name:'',
+                flag: false,
+                submitFlag: false,
+                books: [{
+                    id: 1,
+                    name: '三国演义',
+                    date: ''
+                },{
+                    id: 2,
+                    name: '水浒传',
+                    date: ''
+                },{
+                    id: 3,
+                    name: '红楼梦',
+                    date: ''
+                }]
+            },
+            watch:{
+                name: function(val){
+                  var flag =  this.books.some(function(item){
+                     return  item.name == val 
+                    })
+                    if(flag){
+                        this.submitFlag = true
+                    }else{
+                        this.submitFlag = false
+                    }
+                }
+            },
+            methods: {
+                handel: function(){
+                    if(this.flag){
+                        this.books.some((item) => {
+                           if(item.id == this.id){
+                               item.name = this.name
+                               return true
+                           }                          
+                        })
+                        this.flag = false 
+                    }else{
+                        var books = {}
+                        books.id = this.id
+                        books.name = this.name
+                        books.date = ''
+                        this.books.push(books)
+                    }
+
+                    this.id =''
+                    this.name =''
+                    
+                },
+                toEdit: function(id){
+                   this.flag = true
+                   var books =  this.books.filter(function(item){
+                       return item.id == id
+                    })
+                    this.id = books[0].id
+                    this.name = books[0].name
+                },
+                deleteBooks: function(id){
+                    // 根据索引删除数组
+                    // var index =  this.books.findIndex(function(item){
+                    //    return item.id == id
+                    // })
+                    // this.books.splice(index, 1)
+                    // 用filter 过滤数组
+                    var index =  this.books.filter(function(item){
+                           return  item.id != id
+                        })
+                        console.log(index);
+                        // 将新数组赋值到旧数组中
+                        this.books = index
+                }
+            },
+
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+body {
+    font-family: 'Microsoft YaHei';
+    margin: 8px;
+    
+}
+
+.news-item{
+    display: flex;
+    border: 1px solid #EEE; 
+    padding:   10px;
+    margin-bottom: 5px;
+    width: 700px;
+}
+.thumb{
+    display: block;
+    width: 230px;
+    height: 140px;
+    margin-right: 10px;
+}
+.right-box{
+    display: flex;
+    flex-direction: column;
+    font-size: 12x;
+    flex: 1;
+    justify-content: space-between;
+}
+.title{
+    font-size: 20px;
+    font-weight: normal;
+}
+.tags{
+    display: flex;
+    align-items: center;
+}
+.tags span{
+    
+    background-color: #f0f0f0;
+   
+    line-height: 20px;
+    padding: 0 10px;
+    border-radius: 10px;
+    margin-right: 8px;
+}
+.footer{
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    justify-content: space-between;
+}
+.footer-left span {
+    margin-right: 8px;
+}

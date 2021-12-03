@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div> 
+            <my-cart></my-cart> 
+        </div>
+    </div>
+    <script  src="../js/vue.js"></script>
+    <script>
+        // 局部组件注册
+        var CartTitle = {
+            template:`
+                <div class='title'>
+                    的商品
+                </div>
+            `
+        }
+        // 全局组件注册
+        Vue.component('my-cart', {
+            data: function(){
+                return {
+                    
+                }
+            },
+            template: `
+                <div>
+                    <cart-title></cart-title>
+                </div>
+            `,
+            methods: {
+                
+            },
+            components: {
+               'cart-title': CartTitle,
+            }
+
+        })
+
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                
+            },
+            methods: {
+
+            },
+
+        })
+    </script>
+</body>
+</html>

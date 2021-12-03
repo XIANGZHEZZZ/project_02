@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-focus>
+        <input type="text" v-color='msg'>
+        <div>----全局指令</div>
+        <input type="text" v-focus2>
+        <input type="text" v-color2='msg'>
+    </div>
+    <script  src="../js/vue.js"></script>
+    <script>
+        // 全局 自定义指令自定获取焦点
+        Vue.directive('focus2', {
+           inserted: function(el){
+               el.focus();
+           } 
+        });
+        // 全局 带参数的自定义组件
+        Vue.directive('color2',{
+            bind: function(el, binding){
+                console.log(binding.value.color);
+                el.style.backgroundColor = binding.value.color
+            }
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: {
+                    color: 'blue',
+                }
+            },
+            methods: {
+
+            },
+            // 局部自定义指令
+            directives: {
+                color: {
+                    bind: function(el, binding){
+                    console.log(binding.value.color);
+                    el.style.backgroundColor = binding.value.color
+                     } 
+                },
+                focus: {
+                    inserted: function(el){
+                         el.focus();
+                     } 
+                }
+            },
+
+        })
+    </script>
+</body>
+</html>

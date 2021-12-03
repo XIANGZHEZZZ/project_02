@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    [v-cloak] {
+        display: none;
+    }
+    .uname,.pwd{
+        height: 40px;
+        display: flex;
+        align-items: center;
+    }
+    .uname,.pwd,p{
+       width: 60px;
+       flex-shrink: 0;
+
+    }
+</style>
+<body>
+    <div id="app">
+        <form action="">
+            <div class="uname">
+                <p>用户名:</p>
+                <input type="text" v-on:keyup.delete="handekdelete" v-model="uname"> 
+            </div>
+            <div class="pwd">
+                <p>密码:</p>
+                <input type="text" v-on:keyup.enter="handel" v-model="pwd">
+            </div>
+            <div> 
+                <input type="button" v-on:click="handel" value="提交">
+            </div>
+        </form>
+      
+    </div>
+    <script  src="../js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+               uname:'',
+               pwd:''
+            },
+            methods:{
+                handekdelete: function(){
+                    this.uname = ''
+                    this.pwd = ''
+                },
+                handel: function(){
+                    console.log(this.uname,this.pwd)
+                }
+            }
+
+        })
+    </script>
+</body>
+</html>

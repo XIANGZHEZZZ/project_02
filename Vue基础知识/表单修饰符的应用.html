@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- number 计算数值 默认是字符串拼接 -->
+        <input type="text" v-model.number='age'>
+        <!-- trim 去掉前后空格 中间的去不掉 -->
+        <input type="text" v-model.trim='info'>
+        <!--lazy 失去焦点的时候触发 在用户名验证的时候使用  -->
+        <input type="text" v-model.lazy='msg'>
+        <div>{{msg}}</div>
+        <input type="text" v-model='msgs'>
+        <div>{{msgs}}</div>
+        <button @click='handel'>点击</button>
+    </div>
+    <script  src="../js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                age:'',
+                info:'',
+                msg:'',
+                msgs:'',
+            },
+            methods: {
+                handel: function(){
+                    console.log(this.age + 12);
+                    console.log(this.info.length);
+                    console.log(this.info.msg);
+                }
+            },
+
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div> 
+           <menu-item :pstr='pstr' :pnum='pnum' :pboo='pboo' :parr='parr' :pobj='pobj'></menu-item> 
+        </div>
+    </div>
+    <script  src="../js/vue.js"></script>
+    <script>
+        // 组件注册
+        Vue.component('menu-item', {
+            props: ['pstr','pnum','pboo','parr','pobj' ],
+            data: function(){
+                return {
+                    
+                }
+            },
+            template: `
+            <div>
+                <div>{{pstr}}</div>
+                <div>{{pnum}}</div>
+                <div>{{pboo}}</div>
+                <ul>
+                    <li :key='index' v-for='(item,index) in parr'>{{item}}</li>
+                </ul>
+                <div>
+                   <span>{{pobj.name}}</span>
+                   <span>{{pobj.age}}</span>
+                </div>
+            </div>
+            `,
+            methods: {
+                
+            }
+
+        })
+
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                pstr:'hoell nihao',
+                pnum: 12,
+                pboo: 'ture',
+                parr: ['app','bpp','cpp'],
+                pobj:{
+                    name:'lisi',
+                    age:12
+                }
+            },
+            methods: {
+
+            },
+
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+  
+</style>
+<body>
+    <div id="app">
+        <a v-bind:href="url">{{info}}</a>
+        <button v-on:click="handel">切换</button>
+    </div>
+    <script  src="../js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                url: 'http://www.baidu.com',
+                info:'百度'
+            },
+            methods:{
+                handel: function(){
+                   this.url = 'http://itcast.cn'
+                   this.info = '传智教育'
+                }
+            }
+
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+        // JOSN格式转换成 object 形式
+        var josnStr = '{"a": "hello", "b": "word"}'
+
+        var obj = JSON.parse(josnStr)
+        console.log(obj);
+        console.log(typeof obj);
+
+        // object 字符串转成  JOSN 格式
+        var obj2 = {a: 'hello' , b: 'world'}
+
+        var json =  JSON.stringify(obj2)
+        console.log(json);
+        console.log(typeof json);
+
+    </script>
+</body>
+</html>

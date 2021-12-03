@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    [v-cloak] {
+        display: none;
+    }
+</style>
+<body>
+    <div id="app">
+        <div>
+            <div> {{Number}} </div>
+            
+            <button @click="handel1">点击+</button>
+            <button @click="handel2(123,456,$event)">点击-</button>
+        </div>
+    </div>
+    <script  src="../js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                Number: 0
+            },
+            methods:{
+                handel1: function(event){
+                    console.log(event)
+
+                   console.log(this === vm)
+                   this.Number++
+                },
+                handel2: function(p,p1,event){
+                    console.log(p)
+                    console.log(p1)
+                    console.log(event)
+                   console.log(this === vm)
+                   this.Number--
+                }
+            }
+
+        })
+    </script>
+</body>
+</html>

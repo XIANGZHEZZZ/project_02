@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        [v-cloak] {
+        display: none;
+    }
+        .tabul{
+            height: 40px;
+            width: 300px;
+            box-sizing: border-box;
+            display: flex;
+            /* align-items: center; */
+        }
+        .tabul-item{
+            border: 1px solid #999;
+            padding: 0 10px;
+            line-height: 40px;
+        }
+        
+        .tabul-img{
+            width: 300px;
+            height: 300px;
+            box-sizing: border-box;
+            
+        }
+        .img-item{
+            width: 300px;
+            height: 300px;
+            box-sizing: border-box;
+            display: none;
+        }
+        .active{
+            color: red;
+            display: block;
+            
+        }
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <div class="tabul">
+                <div @click='handel(index)' class="tabul-item" :class='activeIndex===index?"active":""'  v-cloak v-for="(item, index) in myFruits" :key='item.id'> {{item.ename}} </div>
+            </div>
+            
+            <div class="img-item"  :class='activeIndex===index?"active":""' v-for="(item, index) in myFruits" :key='item.id'>
+                <img :src="item.cname" alt="" class="tabul-img">
+            </div>
+        </div>
+    </div>
+    <script  src="../js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                activeIndex:0,
+                myFruits: [{
+                   id: 1,
+                   ename: 'apple',
+                   cname: '../img/apple.png'
+               },{
+                   id: 2,
+                   ename: 'orange',
+                   cname: '../img/orange.png'
+               },{
+                   id: 3,
+                   ename: 'banana',
+                   cname: '../img/lemon.png'
+               },]
+            },
+            methods:{
+                handel: function(index){
+                    this.activeIndex = index
+                }
+            }
+            
+
+        })
+    </script>
+</body>
+</html>

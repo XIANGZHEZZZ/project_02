@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .spanitemss{
+            padding: 0 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div> {{msg}} </div>
+        <div> {{reversedMessage}} </div>
+        <div>
+            <span class="spanitemss" v-for="(item, index) in reversedList" :key="index">{{item}}</span>
+        </div>
+        
+    </div>
+    <script  src="../js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'hello Vue',
+                list:['a','b','c']
+            },
+            methods: {
+
+            },
+            
+            computed:{
+                reversedMessage: function(){
+                    console.log(this.msg);
+                    console.log(this.msg.split(''));
+                    console.log(this.msg.split('').reverse());
+                    console.log(this.msg.split('').reverse().join(''));
+                    return this.msg.split('').reverse().join('')
+                },
+                reversedList: function(){
+                    return  this.list.reverse()
+                }
+            },
+
+        })
+    </script>
+</body>
+</html>

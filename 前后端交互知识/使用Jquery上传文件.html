@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../lib/jquery.js"></script>
+    <link rel="stylesheet" href="../lib/bootstrap.css">
+</head>
+<body>
+    <input type="file" id="file1"/>
+
+    <button id="btnUpload">上传文件</button>
+    <br/>
+
+    <div class="progress" style="width: 500px; margin: 15px 10px;">
+        <div class="progress-bar progress-bar-striped active" style="width: 0%;" id="percent">
+            0%
+        </div>
+    </div>
+    <br/>
+
+    <img src="" alt="" id="img" width="800" />
+    <br/>
+
+    <img src="../img/a.jpg" alt="" style="display: none;" id="loading">
+    <script>
+        $(function(){
+
+            $(document).ajaxStart(function(){
+                $('#loading').show()
+            })
+
+            $(document).ajaxStop(function(){
+                $('#loading').hide()
+            })
+
+            $('#btnUpload').on('click',function(){
+                var files =  $('#file1')[0].files
+
+                if(files.length <=0){
+                    return alert('请选择要上传的文件')
+                 }
+          
+                var fd = new FormData()
+                fd.append('avatar', files[0])
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://www.liulongbin.top:3006/api/upload/avatar',
+                    data: fd,
+                    // 使用Jquery 上传文件必须带上 processData: false, contentType: false, 固定写法
+                    processData: false,
+                    contentType: false,
+                    success: function(res){
+                        console.log(res);
+                    
+                       document.querySelector('#img').src = 'http://www.liulongbin.top:3006' + res.url
+                    }
+
+                })
+            })
+        })
+      
+    </script>
+</body>
+</html>

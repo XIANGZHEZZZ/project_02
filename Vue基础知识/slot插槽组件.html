@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div> 
+            <alert-box>有一个警告</alert-box>
+            <alert-box></alert-box>
+        </div>
+    </div>
+    <script  src="../js/vue.js"></script>
+    <script>
+        // 组件注册
+        Vue.component('alert-box', {
+            data: function(){
+                return {
+                    
+                }
+            },
+            template: `
+              <div>
+                <strong>ERROR:</strong>
+                <slot>默认内容</slot>
+              </div>
+            `,
+            methods: {
+                
+            }
+
+        })
+
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                
+            },
+            methods: {
+
+            },
+
+        })
+    </script>
+</body>
+</html>
